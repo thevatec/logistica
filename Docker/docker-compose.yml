@@ -1,0 +1,15 @@
+---
+version: "3"
+services:
+  # Database
+  logistica-db:
+    image: repo.bit.admin.ch:8444/bitnami/postgresql:15.5.0
+    container_name: postgres-logistica
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=dbname
+volumes:
+  pgadmin-data:
