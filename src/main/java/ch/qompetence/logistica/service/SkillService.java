@@ -24,4 +24,9 @@ public class SkillService {
                 .map(skillMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void deleteAllSkills() {
+        skillRepository.deleteAll();
+    }
 }

@@ -1,7 +1,6 @@
 package ch.qompetence.logistica.service;
 
 import ch.qompetence.logistica.api.dto.PersonnelDto;
-import ch.qompetence.logistica.domain.entity.PersonnelEntity;
 import ch.qompetence.logistica.api.mapper.PersonnelMapper;
 import ch.qompetence.logistica.domain.repository.PersonnelRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,7 @@ public class PersonnelService {
     }
 
     @Transactional
-    public void deleteTask(String id) {
+    public void deletePersonnel(String id) {
         if (!personnelRepository.existsById(id)) {
             throw new RuntimeException("Task with id " + id + " not found");
         }
@@ -36,7 +35,7 @@ public class PersonnelService {
 
 
     @Transactional
-    public void deleteAllTask() {
+    public void deleteAllPersonnel() {
         personnelRepository.deleteAll();
     }
 

@@ -22,14 +22,14 @@ public class PersonnelController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTask(@PathVariable("id") String id) {
-        personnelService.deleteTask(id);
+    public ResponseEntity<Void> deletePersonnel(@PathVariable("id") String id) {
+        personnelService.deletePersonnel(id);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/all")
-    public ResponseEntity<Void> deleteTask() {
-        personnelService.deleteAllTask();
+    public ResponseEntity<Void> deleteAllPersonnel() {
+        personnelService.deleteAllPersonnel();
         return ResponseEntity.noContent().build();
     }
 

@@ -20,4 +20,10 @@ public class SkillController {
         final var skills = skillService.getAllSkills();
         return ResponseEntity.ok(skills);
     }
+
+    @DeleteMapping("/all")
+    public ResponseEntity<Void> deleteAllPersonnel() {
+        skillService.deleteAllSkills();
+        return ResponseEntity.noContent().build();
+    }
 }
