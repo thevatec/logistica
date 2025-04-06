@@ -25,4 +25,18 @@ public class PersonnelService {
                 .map(personnelMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void deleteTask(String id) {
+        if (!personnelRepository.existsById(id)) {
+            throw new RuntimeException("Task with id " + id + " not found");
+        }
+        personnelRepository.deleteById(id);
+    }
+
+
+    @Transactional
+    public void deleteAllTask() {
+        personnelRepository.deleteAll();
+    }
 }

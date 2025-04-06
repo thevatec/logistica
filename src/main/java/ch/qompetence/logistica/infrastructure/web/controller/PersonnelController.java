@@ -20,4 +20,16 @@ public class PersonnelController {
         final var personnelList = personnelService.getAllPersonnel();
         return ResponseEntity.ok(personnelList);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable("id") String id) {
+        personnelService.deleteTask(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/all")
+    public ResponseEntity<Void> deleteTask() {
+        personnelService.deleteAllTask();
+        return ResponseEntity.noContent().build();
+    }
 }
