@@ -36,4 +36,9 @@ public class TaskController {
         taskService.deleteTask(id);
         return ResponseEntity.noContent().build();
     }
+
+    public ResponseEntity<TaskDto> updateTask(@PathVariable("id") String id, @RequestBody TaskDto taskDto) {
+        final var updatedTask = taskService.updateTask(id, taskDto);
+        return ResponseEntity.ok(updatedTask);
+    }
 }

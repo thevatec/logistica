@@ -60,7 +60,8 @@ public class TaskService {
     public TaskDto updateTask(String id, TaskDto dto) {
         final var entity = taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Task not found: " + id));
-        taskMapper.updateTaskFromDto(dto, entity);
+        final var dtoWithId = dto.toBuilder().id(id).build();
+        taskMapper.updateTaskFromDto(dtoWithId, entity);
         taskRepository.save(entity);
         return taskMapper.toDto(entity);
     }

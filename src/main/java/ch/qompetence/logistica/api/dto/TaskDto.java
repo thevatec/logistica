@@ -1,9 +1,11 @@
 package ch.qompetence.logistica.api.dto;
 
+import lombok.Builder;
 import lombok.NonNull;
 
 import java.util.List;
 
+@Builder(toBuilder = true)
 public record TaskDto(
         @NonNull String id,
         @NonNull String name,
