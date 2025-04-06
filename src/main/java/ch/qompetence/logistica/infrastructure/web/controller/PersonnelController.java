@@ -32,4 +32,14 @@ public class PersonnelController {
         personnelService.deleteAllTask();
         return ResponseEntity.noContent().build();
     }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PersonnelDto> updatePersonnel(@PathVariable("id") String id, @RequestBody PersonnelDto personnelDto) {
+        if (!id.equals(personnelDto.id())) {
+            throw new IllegalArgumentException("ID in path and body must match");
+        }
+        final var updated = personnelService.updatePersonnel(personnelDto);
+        return ResponseEntity.ok(updated);
+    }
 }

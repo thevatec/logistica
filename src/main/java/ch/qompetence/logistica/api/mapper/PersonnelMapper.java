@@ -8,9 +8,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring", uses = {SkillMapper.class, VacationDayMapper.class})
 public interface PersonnelMapper {
     PersonnelDto toDto(PersonnelEntity entity);
     PersonnelEntity toEntity(PersonnelDto dto);
+
+    void updatePersonnelFromDto(PersonnelDto dto, @MappingTarget PersonnelEntity entity);
 }

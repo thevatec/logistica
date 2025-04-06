@@ -20,6 +20,9 @@ public interface TaskMapper {
 
     TaskEntity toEntity(CreateTaskRequest request);
 
+
+    void updateTaskFromDto(TaskDto dto, @MappingTarget TaskEntity entity);
+
     @AfterMapping
     default void setTaskInRequirements(@MappingTarget TaskEntity task) {
         if (task.getRequirements() != null) {

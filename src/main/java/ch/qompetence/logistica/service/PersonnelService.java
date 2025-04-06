@@ -39,4 +39,13 @@ public class PersonnelService {
     public void deleteAllTask() {
         personnelRepository.deleteAll();
     }
+
+    @Transactional
+    public PersonnelDto updatePersonnel(PersonnelDto personnelDto) {
+        var existingEntity = personnelRepository.findById(personnelDto.id())
+                .orElseThrow(() -> new RuntimeException("Personnel with id " + personnelDto.id() + " not found"));
+        personnelMapper.updatePersonnelFromDto(personnelDto, existingEntity);
+        var savedEntity = personnelRepository.save(existingEntity);
+        return personnelMapper.toDto(savedEntity);
+    }
 }

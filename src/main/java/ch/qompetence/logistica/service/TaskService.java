@@ -55,4 +55,13 @@ public class TaskService {
         }
         taskRepository.deleteById(id);
     }
+
+    @Transactional
+    public TaskDto updateTask(String id, TaskDto dto) {
+        final var entity = taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Task not found: " + id));
+        taskMapper.updateTaskFromDto(dto, entity);
+        taskRepository.save(entity);
+        return taskMapper.toDto(entity);
+    }
 }
