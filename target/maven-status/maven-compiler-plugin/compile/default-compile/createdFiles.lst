@@ -10,6 +10,7 @@ ch/qompetence/logistica/domain/entity/VacationDayEntity$VacationDayEntityBuilder
 ch/qompetence/logistica/api/mapper/PersonnelMapperImpl.class
 ch/qompetence/logistica/service/SkillService.class
 ch/qompetence/logistica/infrastructure/web/controller/UploadController.class
+ch/qompetence/logistica/api/dto/TaskDto$TaskDtoBuilder.class
 ch/qompetence/logistica/api/dto/CreateTaskRequirementRequest$CreateTaskRequirementRequestBuilder.class
 ch/qompetence/logistica/config/CorsConfig.class
 ch/qompetence/logistica/api/mapper/TaskRequirementMapperImpl.class

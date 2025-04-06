@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-05T18:58:24+0200",
+    date = "2025-04-06T21:39:07+0200",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.1 (Eclipse Adoptium)"
 )
 @Component
@@ -66,6 +66,50 @@ public class PersonnelMapperImpl implements PersonnelMapper {
         personnelEntity.vacationDays( vacationDayDtoListToVacationDayEntityList( dto.vacationDays() ) );
 
         return personnelEntity.build();
+    }
+
+    @Override
+    public void updatePersonnelFromDto(PersonnelDto dto, PersonnelEntity entity) {
+        if ( dto == null ) {
+            return;
+        }
+
+        entity.setId( dto.id() );
+        entity.setName( dto.name() );
+        entity.setGrade( dto.grade() );
+        entity.setAvailable( dto.available() );
+        if ( entity.getSkills() != null ) {
+            List<SkillEntity> list = skillDtoListToSkillEntityList( dto.skills() );
+            if ( list != null ) {
+                entity.getSkills().clear();
+                entity.getSkills().addAll( list );
+            }
+            else {
+                entity.setSkills( null );
+            }
+        }
+        else {
+            List<SkillEntity> list = skillDtoListToSkillEntityList( dto.skills() );
+            if ( list != null ) {
+                entity.setSkills( list );
+            }
+        }
+        if ( entity.getVacationDays() != null ) {
+            List<VacationDayEntity> list1 = vacationDayDtoListToVacationDayEntityList( dto.vacationDays() );
+            if ( list1 != null ) {
+                entity.getVacationDays().clear();
+                entity.getVacationDays().addAll( list1 );
+            }
+            else {
+                entity.setVacationDays( null );
+            }
+        }
+        else {
+            List<VacationDayEntity> list1 = vacationDayDtoListToVacationDayEntityList( dto.vacationDays() );
+            if ( list1 != null ) {
+                entity.setVacationDays( list1 );
+            }
+        }
     }
 
     protected List<SkillDto> skillEntityListToSkillDtoList(List<SkillEntity> list) {

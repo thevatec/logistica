@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-05T18:58:24+0200",
+    date = "2025-04-06T21:39:07+0200",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.1 (Eclipse Adoptium)"
 )
 @Component
@@ -29,31 +29,20 @@ public class TaskMapperImpl implements TaskMapper {
             return null;
         }
 
-        String id = null;
-        String name = null;
-        String location = null;
-        String startDate = null;
-        String endDate = null;
-        boolean mealsProvided = false;
-        boolean accommodationProvided = false;
-        String mealsDetails = null;
-        String accommodationDetails = null;
-        List<TaskRequirementDto> requirements = null;
+        TaskDto.TaskDtoBuilder taskDto = TaskDto.builder();
 
-        id = entity.getId();
-        name = entity.getName();
-        location = entity.getLocation();
-        startDate = entity.getStartDate();
-        endDate = entity.getEndDate();
-        mealsProvided = entity.isMealsProvided();
-        accommodationProvided = entity.isAccommodationProvided();
-        mealsDetails = entity.getMealsDetails();
-        accommodationDetails = entity.getAccommodationDetails();
-        requirements = taskRequirementEntityListToTaskRequirementDtoList( entity.getRequirements() );
+        taskDto.id( entity.getId() );
+        taskDto.name( entity.getName() );
+        taskDto.location( entity.getLocation() );
+        taskDto.startDate( entity.getStartDate() );
+        taskDto.endDate( entity.getEndDate() );
+        taskDto.mealsProvided( entity.isMealsProvided() );
+        taskDto.accommodationProvided( entity.isAccommodationProvided() );
+        taskDto.mealsDetails( entity.getMealsDetails() );
+        taskDto.accommodationDetails( entity.getAccommodationDetails() );
+        taskDto.requirements( taskRequirementEntityListToTaskRequirementDtoList( entity.getRequirements() ) );
 
-        TaskDto taskDto = new TaskDto( id, name, location, startDate, endDate, mealsProvided, accommodationProvided, mealsDetails, accommodationDetails, requirements );
-
-        return taskDto;
+        return taskDto.build();
     }
 
     @Override
@@ -97,6 +86,41 @@ public class TaskMapperImpl implements TaskMapper {
         taskEntity.requirements( createTaskRequirementRequestListToTaskRequirementEntityList( request.requirements() ) );
 
         return taskEntity.build();
+    }
+
+    @Override
+    public void updateTaskFromDto(TaskDto dto, TaskEntity entity) {
+        if ( dto == null ) {
+            return;
+        }
+
+        entity.setId( dto.id() );
+        entity.setName( dto.name() );
+        entity.setLocation( dto.location() );
+        entity.setStartDate( dto.startDate() );
+        entity.setEndDate( dto.endDate() );
+        entity.setMealsProvided( dto.mealsProvided() );
+        entity.setAccommodationProvided( dto.accommodationProvided() );
+        entity.setMealsDetails( dto.mealsDetails() );
+        entity.setAccommodationDetails( dto.accommodationDetails() );
+        if ( entity.getRequirements() != null ) {
+            List<TaskRequirementEntity> list = taskRequirementDtoListToTaskRequirementEntityList( dto.requirements() );
+            if ( list != null ) {
+                entity.getRequirements().clear();
+                entity.getRequirements().addAll( list );
+            }
+            else {
+                entity.setRequirements( null );
+            }
+        }
+        else {
+            List<TaskRequirementEntity> list = taskRequirementDtoListToTaskRequirementEntityList( dto.requirements() );
+            if ( list != null ) {
+                entity.setRequirements( list );
+            }
+        }
+
+        setTaskInRequirements( entity );
     }
 
     protected List<TaskRequirementDto> taskRequirementEntityListToTaskRequirementDtoList(List<TaskRequirementEntity> list) {
