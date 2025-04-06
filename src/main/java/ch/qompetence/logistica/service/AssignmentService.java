@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,6 +47,11 @@ public class AssignmentService {
         }
         // Speichere alle Entities; da sie im aktuellen Persistence Context sind,
         // sollte Hibernate ein direktes Update durchführen.
+        updatedEntities.forEach(entity -> {
+            if (Objects.nonNull(entity.getPersonnel())) {
+                entity.getPersonnel().setAvailable(false);
+            }
+        });
         assignmentRepository.saveAll(updatedEntities);
         return updatedEntities.stream()
                 .map(assignmentMapper::toDto)
