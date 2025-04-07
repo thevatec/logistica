@@ -2,6 +2,7 @@ package ch.qompetence.logistica.infrastructure.web.controller;
 
 import ch.qompetence.logistica.api.dto.PersonnelDto;
 import ch.qompetence.logistica.service.PersonnelService;
+import ch.qompetence.logistica.service.SkillService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 public class PersonnelController {
 
     private final PersonnelService personnelService;
+    private final SkillService skillService;
 
     @GetMapping
     public ResponseEntity<List<PersonnelDto>> getAllPersonnel() {
@@ -30,6 +32,7 @@ public class PersonnelController {
     @DeleteMapping("/all")
     public ResponseEntity<Void> deleteAllPersonnel() {
         personnelService.deleteAllPersonnel();
+        skillService.deleteAllSkills();
         return ResponseEntity.noContent().build();
     }
 
